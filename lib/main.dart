@@ -15,19 +15,36 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var _questionCounter = 0;
 
-  List _questionList = [
-    "This is question 1",
-    "This is question 2",
-    "This is question 3",
-    "This is question 4"
+  // List _questionList = [
+  //   "This is question 1",
+  //   "This is question 2",
+  //   "This is question 3",
+  //   "This is question 4"
+  // ];
+
+  final questions = [
+    {
+      'questionText': 'What\'s you favourite colour?',
+      'answers': ['Black', 'Red', 'Green', 'White']
+    },
+    {
+      'questionText': 'Question 2',
+      'answers': ['Black', 'Red', 'White']
+    },
+    {
+      'questionText': 'Question3',
+      'answers': ['Black', 'Red']
+    },
+    {
+      'questionText': 'Question4',
+      'answers': ['Black', 'Red', 'Green', 'White']
+    }
   ];
 
   void answerQuestion() {
     setState(() {
-      if (_questionCounter < _questionList.length - 1) {
-        _questionCounter++;
-        print("COUNTER INCREASED ${_questionCounter}");
-      }
+      _questionCounter++;
+      print("COUNTER INCREASED ${_questionCounter}");
     });
   }
 
@@ -36,15 +53,19 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('Flutter App')),
-        body: Column(
-          children: [
-            Question(_questionList[_questionCounter]),
-            Answer(answerQuestion),
-            Answer(answerQuestion),
-            Answer(answerQuestion),
-            Answer(answerQuestion),
-          ],
-        ),
+        body: _questionCounter < questions.length
+            ? Column(
+                children: [
+                  Question(questions[_questionCounter]['questionText']),
+                  ...(questions[_questionCounter]['answers'] as List<String>)
+                      .map((answer) {
+                    return Answer(answerQuestion, answer);
+                  }).toList(),
+                ],
+              )
+            : Center(
+                child: Text("All Done"),
+              ),
       ),
     );
   }
