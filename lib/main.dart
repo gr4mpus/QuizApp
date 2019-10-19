@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
   //   "This is question 4"
   // ];
 
-  final questions = [
+  final _questions = [
     {
       'questionText': 'What\'s you favourite colour?',
       'answers': ['Black', 'Red', 'Green', 'White']
@@ -53,19 +53,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('Flutter App')),
-        body: _questionCounter < questions.length
-            ? Column(
-                children: [
-                  Question(questions[_questionCounter]['questionText']),
-                  ...(questions[_questionCounter]['answers'] as List<String>)
-                      .map((answer) {
-                    return Answer(answerQuestion, answer);
-                  }).toList(),
-                ],
-              )
-            : Center(
-                child: Text("All Done"),
-              ),
+        body: _questionCounter < _questions.length
+            ? Quiz(_questions, _questionCounter, answerQuestion)
+            : Result(),
       ),
     );
   }
