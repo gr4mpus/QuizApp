@@ -8,16 +8,16 @@ final List<Map<String, Object>> questions;
 final int questionCounter;
 final Function answerQuestion;
 
-Quiz(this.questions,this.questionCounter, this.answerQuestion);
+Quiz({ @required this.questions,@required this.questionCounter,@required this.answerQuestion});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Question(questions[questionCounter]['questionText']),
-        ...(questions[questionCounter]['answers'] as List<String>)
+        ...(questions[questionCounter]['answers'] as List<Map<String,Object>>)
             .map((answer) {
-          return Answer(answerQuestion, answer);
+          return Answer(()=>answerQuestion(answer['score']), answer['text']);
         }).toList(),
       ],
     );

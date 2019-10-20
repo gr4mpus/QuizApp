@@ -14,6 +14,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionCounter = 0;
+  var _totalScore = 0;
 
   // List _questionList = [
   //   "This is question 1",
@@ -25,25 +26,43 @@ class _MyAppState extends State<MyApp> {
   final _questions = [
     {
       'questionText': 'What\'s you favourite colour?',
-      'answers': ['Black', 'Red', 'Green', 'White']
+      'answers': [
+        {'text': 'Black', 'score': 5},
+        {'text': 'Red', 'score': 2},
+        {'text': 'Green', 'score': 6},
+        {'text': 'White', 'score': 9}
+      ]
     },
     {
       'questionText': 'Question 2',
-      'answers': ['Black', 'Red', 'White']
+      'answers': [
+        {'text': 'Black', 'score': 5},
+        {'text': 'Red', 'score': 2},
+        {'text': 'White', 'score': 9}
+      ]
     },
     {
       'questionText': 'Question3',
-      'answers': ['Black', 'Red']
+      'answers': [
+        {'text': 'Black', 'score': 5},
+        {'text': 'Red', 'score': 2},
+        {'text': 'Green', 'score': 6},
+        {'text': 'White', 'score': 9}
+      ]
     },
     {
       'questionText': 'Question4',
-      'answers': ['Black', 'Red', 'Green', 'White']
+      'answers': [
+        {'text': 'Black', 'score': 5},
+        {'text': 'Red', 'score': 2},
+      ]
     }
   ];
 
-  void answerQuestion() {
+  void answerQuestion(int score) {
     setState(() {
       _questionCounter++;
+      _totalScore += score;
       print("COUNTER INCREASED ${_questionCounter}");
     });
   }
@@ -54,8 +73,11 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(title: Text('Flutter App')),
         body: _questionCounter < _questions.length
-            ? Quiz(_questions, _questionCounter, answerQuestion)
-            : Result(),
+            ? Quiz(
+                questions: _questions,
+                questionCounter: _questionCounter,
+                answerQuestion: answerQuestion)
+            : Result(_totalScore),
       ),
     );
   }
