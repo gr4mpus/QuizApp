@@ -16,6 +16,13 @@ class _MyAppState extends State<MyApp> {
   var _questionCounter = 0;
   var _totalScore = 0;
 
+  void _resetQuiz() {
+    setState(() {
+      _questionCounter = 0;
+      _totalScore = 0;
+    });
+  }
+
   // List _questionList = [
   //   "This is question 1",
   //   "This is question 2",
@@ -25,7 +32,7 @@ class _MyAppState extends State<MyApp> {
 
   final _questions = [
     {
-      'questionText': 'What\'s you favourite colour?',
+      'questionText': 'Which is your favourite colour?',
       'answers': [
         {'text': 'Black', 'score': 5},
         {'text': 'Red', 'score': 2},
@@ -34,27 +41,28 @@ class _MyAppState extends State<MyApp> {
       ]
     },
     {
-      'questionText': 'Question 2',
+      'questionText': 'Which is you favourite animal?',
       'answers': [
-        {'text': 'Black', 'score': 5},
-        {'text': 'Red', 'score': 2},
-        {'text': 'White', 'score': 9}
+        {'text': 'Tiger', 'score': 5},
+        {'text': 'Rabbit', 'score': 2},
+        {'text': 'Lion', 'score': 9}
       ]
     },
     {
-      'questionText': 'Question3',
+      'questionText': 'Which movie do you prefer?',
       'answers': [
-        {'text': 'Black', 'score': 5},
-        {'text': 'Red', 'score': 2},
-        {'text': 'Green', 'score': 6},
-        {'text': 'White', 'score': 9}
+        {'text': 'Aquaman', 'score': 2},
+        {'text': 'Superman vs Batman', 'score': 6},
+        {'text': 'Justice League', 'score': 3},
+        {'text': 'Joker', 'score': 9}
       ]
     },
     {
-      'questionText': 'Question4',
+      'questionText': 'What does the fox say?',
       'answers': [
-        {'text': 'Black', 'score': 5},
-        {'text': 'Red', 'score': 2},
+        {'text': 'Ring-ding-ding', 'score': 5},
+        {'text': 'Moo', 'score': 2},
+        {'text': 'Blub', 'score': 2},
       ]
     }
   ];
@@ -77,7 +85,7 @@ class _MyAppState extends State<MyApp> {
                 questions: _questions,
                 questionCounter: _questionCounter,
                 answerQuestion: answerQuestion)
-            : Result(_totalScore),
+            : Result(_totalScore,_resetQuiz),
       ),
     );
   }
